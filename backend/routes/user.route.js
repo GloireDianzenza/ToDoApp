@@ -4,6 +4,6 @@ const {getUsers,addUser,findUser,checkLogin} = require("../controllers/user.cont
 
 router.get("/",(req,res,next)=>getUsers(req,res,next));
 router.post("/",(req,res,next)=>addUser(req,res,next));
-router.get("/:id",(req,res,next)=>checkLogin(req,res,next));
+router.get("/:username/:password",(req,res,next)=>checkLogin(req,res,next));
 
 module.exports = router;

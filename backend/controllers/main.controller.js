@@ -52,7 +52,11 @@ async function findAssignedTasks(req,res,next){
     try{
         const id = req.params.id;
         const allTasks = await Main.findAll({where:{idUser:id}});//sequelize.query("SELECT * FROM usertasks");
-        return res.status(200).json(allTasks[0].dataValues);
+        let tsks = [];
+        for(tsk of allTasks){
+            tsks.push(tsk.dataValues);
+        }
+        return res.status(200).json(tsks);
     }catch(error){
         return res.status(404).json({error});
     }

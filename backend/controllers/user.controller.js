@@ -30,14 +30,12 @@ async function findUser(req,res,next){
 
 async function checkLogin(req,res,next){
     try{
-        console.log("ddd");
-        let user = await User.findAll({where:{id:req.params.id}});//await sequelize.query(`SELECT * FROM users WHERE id = '${req.params.id}'`);
-        console.log(user);
-        if(user[0].length <= 0)throw new Error("User not found");
+        let user = await User.findAll({where:{pseudo:req.params.username}});//await sequelize.query(`SELECT * FROM users WHERE id = '${req.params.id}'`);
+        if(user.length <= 0)throw new Error("User not found");
         else{
             user = user[0].dataValues
             let pass = user.password;
-            bcrypt.compare(req.body.password,pass)
+            bcrypt.compare(req.params.password,pass)
             .then(valid=>{
                 if(valid){
                     res.status(200).json(user);
@@ -57,15 +55,17 @@ async function checkLogin(req,res,next){
 
 async function addUser(req,res,next){
     try{
-        bcrypt.hash(req.body.password,10)
+        bcrypt.hash(req.body.password.toString(),10)
         .then(async hash=>{
+            console.log(hash);
             const user = await User.create({
                 pseudo:req.body.username,
                 password:hash
             });//await sequelize.query(`INSERT INTO user (pseudo,password) VALUES ('${req.body.username}','${hash}')`);
-            return res.status(201).json({message:"Utilisateur ajouté"});
+            return res.status(201).json({message:"Utilisateur ajouté",username:req.body.username,password:hash});
         })
         .catch(error=>{
+            console.log(error);
             return res.status(404).json(error);
         })
     }catch(error){
