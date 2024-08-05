@@ -1,0 +1,21 @@
+form{
+    display: flex;
+    flex-direction: column;
+    min-width: 50% !important;
+    gap: 50px;
+}
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+form input:not(input[type=submit]){
+    font-size: 30px !important;
+    padding: 10px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+}

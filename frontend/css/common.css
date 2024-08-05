@@ -1,0 +1,31 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    list-style: none;
+    text-decoration: none;
+}
+*,*::before,*::after{
+    transition: all 0.3s ease !important;
+}
+html{
+    scroll-behavior: smooth;
+}
+body{
+    width: 100% !important;
+    min-height: 100vh;
+    background-color: cyan;
+}
+button,input[type=submit]{
+    cursor: pointer;
+    font-size: 30px;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;outline: none;
+    background-color: white;
+}
+button:hover,input[type=submit]:hover{
+    background-color: red;
+    color: white;
+}

@@ -1,8 +1,12 @@
 const express = require("express");
 const app = express();
-const Sequelize = require('sequelize');
-const sequelize = new Sequelize('test', 'root', 'rootsqls442@', {
+const {Sequelize} = require('sequelize');
+const sequelize = new Sequelize('test1', 'root', 'rootsqls442@', {
     host: 'localhost',dialect:"mysql"});
+const userRoute = require("./routes/user.route")
+const taskRoute = require("./routes/task.route")
+const completedRoute = require("./routes/completed.route")
+const mainRoute = require("./routes/main.route")
 app.use((req,res,next)=>{
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
@@ -10,6 +14,10 @@ app.use((req,res,next)=>{
     next();
 });
 app.use(express.json());
+app.use("/api/users",userRoute);
+app.use("/api/tasks",taskRoute);
+app.use("/api/status",completedRoute);
+app.use("/api/manage",mainRoute);
 
 async function connect(){
     try {
