@@ -77,7 +77,7 @@ async function updateTask(req,res,next){
     try{
         const idUser = req.params.id;
         const idTask = req.params.task;
-        const updateTask = await sequelize.query(`UPDATE task SET title = '${req.body.title}' WHERE id = '${idTask}'`);
+        const updateTask = await sequelize.query(`UPDATE tasks SET title = '${req.body.title}' WHERE id = '${idTask}'`);
         return res.status(201).json({message:"Tâche mise à jour"});
     }catch(error){
         return res.status(400).json({error});

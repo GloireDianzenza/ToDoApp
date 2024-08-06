@@ -35,7 +35,24 @@ fetch("http://localhost:3500/api/users/"+username+"/"+password)
                 editBtn.innerText = "Modifier";
 
                 editBtn.addEventListener("click",()=>{
-                    
+                    let target = event.target;
+                    let parent = target.parentNode;
+                    let idTask = parseInt(parent.getAttribute("data-id"));
+                    let input = parent.childNodes[0];
+                    let newBody = {title:input.value};
+                    fetch("http://localhost:3500/api/manage/"+idUser+"/"+idTask,{
+                        method:"PUT",
+                        headers:{'Accept': 'application/json',
+                'Content-Type': 'application/json'},
+                        body:JSON.stringify(newBody)
+                    })
+                    .then(response=>response.json())
+                    .then(data=>{
+                        console.log(data);
+                    })
+                    .catch(error=>{
+                        console.error("error",error);
+                    })
                 })
 
                 taskDiv.appendChild(editBtn);
@@ -54,7 +71,6 @@ fetch("http://localhost:3500/api/users/"+username+"/"+password)
                     let target = event.target;
                     let parent = target.parentNode;
                     let idTask = parseInt(parent.getAttribute("data-id"));
-                    console.log(parent);
 
                     fetch("http://localhost:3500/api/manage/"+idUser+"/"+idTask+"/toggle",{
                         method:"PUT",
