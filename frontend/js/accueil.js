@@ -55,12 +55,33 @@ fetch("http://localhost:3500/api/users/"+username+"/"+password)
                         console.error("error",error);
                     })
                 })
+                
 
                 taskDiv.appendChild(editBtn);
                 
                 let deleteBtn = document.createElement("button");
                 deleteBtn.id = "deleteBtn";
                 deleteBtn.innerText = "Supprimer";
+
+                deleteBtn.addEventListener("click",(event)=>{
+                    let target = event.target;
+                    let parent = target.parentNode;
+                    let idTask = parseInt(parent.getAttribute("data-id"));
+                    fetch("http://localhost:3500/api/manage/"+idUser+"/"+idTask,{
+                        method:"DELETE",
+                        headers:{'Accept': 'application/json',
+                'Content-Type': 'application/json'}
+                    })
+                    .then(response=>response.json())
+                    .then(data=>{
+                        console.log(data);
+                        window.location = "./accueil.html?username="+username+"&password="+password;
+                    })
+                    .catch(error=>{
+                        console.error("error",error);
+                    })
+                })
+
                 taskDiv.appendChild(deleteBtn);
 
                 let completeChk = document.createElement("input");
@@ -107,6 +128,25 @@ fetch("http://localhost:3500/api/users/"+username+"/"+password)
     })
     .catch(error=>{
         console.error("error",error);
+    })
+
+    newTask.addEventListener("click",()=>{
+        let new_task = "";
+        let newBody = {idUser:idUser,task:new_task};
+        fetch("http://localhost:3500/api/manage",{
+            method:"POST",
+            headers:{'Accept': 'application/json',
+                'Content-Type': 'application/json'},
+            body:JSON.stringify(newBody)
+        })
+        .then(response=>response.json())
+        .then(data=>{
+            console.log(data);
+            window.location = "./accueil.html?username="+username+"&password="+password;
+        })
+        .catch(error=>{
+            console.error("error",error);
+        })
     })
 
 
