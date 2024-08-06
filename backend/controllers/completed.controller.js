@@ -27,7 +27,7 @@ async function completedBooleanValue(req,res,next){
                 throw new Error("Invalid value");
         }
     }catch(error){
-        return res.status(404).json(error);
+        return res.status(404).json({error});
     }
 }
 
