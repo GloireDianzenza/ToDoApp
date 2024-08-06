@@ -49,6 +49,7 @@ fetch("http://localhost:3500/api/users/"+username+"/"+password)
                     .then(response=>response.json())
                     .then(data=>{
                         console.log(data);
+                        window.location = "./accueil.html?username="+username+"&password="+password;
                     })
                     .catch(error=>{
                         console.error("error",error);
