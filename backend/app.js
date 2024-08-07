@@ -1,5 +1,7 @@
 const express = require("express");
 const app = express();
+const helmet= require("helmet");
+const sanitize = require("sanitize");
 const {Sequelize} = require('sequelize');
 const sequelize = new Sequelize('test1', 'root', 'rootsqls442@', {
     host: 'localhost',dialect:"mysql"});
@@ -14,6 +16,8 @@ app.use((req,res,next)=>{
     next();
 });
 app.use(express.json());
+app.use(helmet());
+app.use(sanitize.middleware);
 app.use("/api/users",userRoute);
 app.use("/api/tasks",taskRoute);
 app.use("/api/status",completedRoute);

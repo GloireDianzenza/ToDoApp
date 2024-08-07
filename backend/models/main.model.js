@@ -13,6 +13,5 @@ const UserTask = sequelize.define("UserTask",{
 
 User.belongsToMany(Task,{through:UserTask});
 Task.belongsToMany(User,{through:UserTask});
-UserTask.hasMany(Completed);
 
 module.exports = UserTask;
